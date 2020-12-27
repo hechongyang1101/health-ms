@@ -3,6 +3,8 @@ package com.he.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.he.constant.MessageConstant;
+import com.he.entity.PageResult;
+import com.he.entity.QueryPageBean;
 import com.he.entity.Result;
 import com.he.pojo.CheckItem;
 import com.he.service.CheckItemService;
@@ -27,5 +29,14 @@ public class CheckItemController {
         return new Result(true, MessageConstant.ADD_CHECKITEM_SUCCESS);
     }
 
+    //分页查询
+    @RequestMapping("/findPage")
+    public PageResult findPage(@RequestBody QueryPageBean queryPageBean){
+        PageResult pageResult = checkItemService.pageQuery(queryPageBean.getCurrentPage(),
+                queryPageBean.getPageSize(),
+                queryPageBean.getQueryString());
+        //System.out.println(queryPageBean);
+        return pageResult;
+    }
 
 }

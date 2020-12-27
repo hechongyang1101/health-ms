@@ -8,4 +8,10 @@
                       values
         (#{code},#{name},#{sex},#{age},#{price},#{type},#{remark},#{attention})
     </insert>
+    <select id="selectByCondition" parameterType="string" resultType="com.he.pojo.CheckItem">
+        select * from t_checkitem
+        <if test="value != null and value.length > 0">
+            where code = #{value} or name like #{value}
+        </if>
+    </select>
 </mapper>
