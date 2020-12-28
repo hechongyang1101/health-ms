@@ -8,4 +8,9 @@ public interface CheckItemService {
 
     public PageResult pageQuery(Integer currentPage, Integer pageSize, String queryString);
 
+    public void deleteById(Integer id);
+
+    public CheckItem findById(Integer id);
+
+    public void edit(CheckItem checkItem);
 }

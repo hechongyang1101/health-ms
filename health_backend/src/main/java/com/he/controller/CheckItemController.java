@@ -39,4 +39,40 @@ public class CheckItemController {
         return pageResult;
     }
 
+    //删除操作
+    @RequestMapping("/delete")
+    public Result delete(Integer id){
+        try {
+            checkItemService.deleteById(id);
+        }catch (RuntimeException e){
+            return new Result(false,e.getMessage());
+        }catch (Exception e){
+            return new Result(false, MessageConstant.DELETE_CHECKITEM_FAIL);
+        }
+        return new Result(true,MessageConstant.DELETE_CHECKITEM_SUCCESS);
+    }
+
+    //更新回显操作
+    @RequestMapping("/findById")
+    public Result findById(Integer id){
+        try{
+            CheckItem checkItem = checkItemService.findById(id);
+            return  new Result(true, MessageConstant.QUERY_CHECKITEM_SUCCESS,checkItem);
+        }catch (Exception e){
+            e.printStackTrace();
+            //服务调用失败
+            return new Result(false, MessageConstant.QUERY_CHECKITEM_FAIL);
+        }
+    }
+
+    //编辑
+    @RequestMapping("/edit")
+    public Result edit(@RequestBody CheckItem checkItem){
+        try {
+            checkItemService.edit(checkItem);
+        }catch (Exception e){
+            return new Result(false,MessageConstant.EDIT_CHECKITEM_FAIL);
+        }
+        return new Result(true,MessageConstant.EDIT_CHECKITEM_SUCCESS);
+    }
 }
