@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/checkitem")
 public class CheckItemController {
@@ -39,19 +41,6 @@ public class CheckItemController {
         return pageResult;
     }
 
-    //删除操作
-    @RequestMapping("/delete")
-    public Result delete(Integer id){
-        try {
-            checkItemService.deleteById(id);
-        }catch (RuntimeException e){
-            return new Result(false,e.getMessage());
-        }catch (Exception e){
-            return new Result(false, MessageConstant.DELETE_CHECKITEM_FAIL);
-        }
-        return new Result(true,MessageConstant.DELETE_CHECKITEM_SUCCESS);
-    }
-
     //更新回显操作
     @RequestMapping("/findById")
     public Result findById(Integer id){
@@ -65,6 +54,19 @@ public class CheckItemController {
         }
     }
 
+    //查询所有
+    @RequestMapping("/findAll")
+    public Result findAll(){
+        List<CheckItem> checkItemList = checkItemService.findAll();
+        if(checkItemList != null && checkItemList.size() > 0){
+            Result result = new Result(true,
+                    MessageConstant.QUERY_CHECKITEM_SUCCESS,
+                    checkItemList);
+            return result;
+        }
+        return new Result(false,MessageConstant.QUERY_CHECKITEM_FAIL);
+    }
+
     //编辑
     @RequestMapping("/edit")
     public Result edit(@RequestBody CheckItem checkItem){
@@ -74,5 +76,18 @@ public class CheckItemController {
             return new Result(false,MessageConstant.EDIT_CHECKITEM_FAIL);
         }
         return new Result(true,MessageConstant.EDIT_CHECKITEM_SUCCESS);
+    }
+
+    //删除操作
+    @RequestMapping("/delete")
+    public Result delete(Integer id){
+        try {
+            checkItemService.deleteById(id);
+        }catch (RuntimeException e){
+            return new Result(false,e.getMessage());
+        }catch (Exception e){
+            return new Result(false, MessageConstant.DELETE_CHECKITEM_FAIL);
+        }
+        return new Result(true,MessageConstant.DELETE_CHECKITEM_SUCCESS);
     }
 }
