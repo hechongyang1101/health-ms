@@ -55,5 +55,7 @@
     <select id="findCheckItemIdsByCheckGroupId" parameterType="int" resultType="java.lang.Integer">
         select checkitem_id from t_checkgroup_checkitem where checkgroup_id = #{id}
     </select>
-
+    <select id="findAll" resultType="com.he.pojo.CheckGroup">
+        select * from t_checkgroup
+    </select>
 </mapper>
