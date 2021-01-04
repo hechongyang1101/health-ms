@@ -24,4 +24,6 @@ public interface CheckGroupDao {
     public void edit(CheckGroup checkGroup);
 
     public List<CheckGroup> findAll();
+
+    public CheckGroup findCheckGroupBySetmealId(Integer id);
 }
