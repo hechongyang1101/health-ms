@@ -6,7 +6,7 @@
     <insert id="add" parameterType="com.he.pojo.OrderSetting">
         insert into t_ordersetting
       		(orderDate,number,reservations)
-                      values
+        values
       		(#{orderDate},#{number},#{reservations})
     </insert>
     <!--根据日期更新预约人数-->
@@ -23,4 +23,15 @@
             resultType="com.he.pojo.OrderSetting">
       select * from t_ordersetting where orderDate between #{dateBegin} and #{dateEnd}
     </select>
+    <!--根据日期查询预约设置信息-->
+    <select id="findByOrderDate"
+            parameterType="date"
+            resultType="com.he.pojo.OrderSetting">
+      select * from t_ordersetting where orderDate = #{orderDate}
+    </select>
+    <!--更新已预约人数-->
+    <update id="editReservationsByOrderDate"
+            parameterType="com.he.pojo.OrderSetting">
+      update t_ordersetting set reservations = #{reservations} where orderDate = #{orderDate}
+    </update>
 </mapper>
