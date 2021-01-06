@@ -353,9 +353,19 @@
                                     type: 'success'
                                 });
                             }
-                        }).catch(() => {
+                        }).catch((r) => {
                             //请求发送失败
-                            this.$message.error("未知错误!");
+                            //this.$message.error("未知错误!");
+                            //没有权限
+                            if(r == 'Error: Request failed with status code 403'){
+                                //权限不足
+                                this.$message.error('无访问权限');
+                                return;
+                            }else{
+                                this.$message.error('未知错误');
+                                return;
+                            }
+
                         }).finally(() => {
                             //调用分页，获取最新分页数据
                             this.findPage();
